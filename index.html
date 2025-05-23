@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creative JS Tasks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #6a8aff;
+            --secondary-purple: #8e6aff;
+            --light-bg: #f0f4f8;
+            --dark-text: #2c3e50;
+            --card-bg: #ffffff;
+            --button-green: #2ecc71;
+            --button-green-hover: #27ae60;
+            --modal-bg: rgba(0, 0, 0, 0.7);
+            --modal-content-bg: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #dce4eb 100%);
+            color: var(--dark-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--secondary-purple) 100%);
+            color: white;
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 1.5px;
+            box-shadow: 0 5px 15px var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+            font-weight: 700;
+        }
+
+        h1::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+        }
+
+        .task-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 50px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-grow: 1;
+        }
+
+        .task {
+            background: var(--card-bg);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px var(--shadow-light);
+            padding: 30px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .task:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+
+        .task h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .task button {
+            background: var(--button-green);
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: auto; /* Pushes button to the bottom */
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .task button:hover {
+            background: var(--button-green-hover);
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-bg);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .modal-content {
+            background: var(--modal-content-bg);
+            padding: 35px;
+            border-radius: 25px;
+            max-width: 650px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            animation: slideUp 0.4s ease forwards;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .modal-content h4 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .modal-content p {
+            white-space: pre-wrap; /* Keeps newlines from JS */
+            margin-top: 10px;
+            line-height: 1.8em;
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            cursor: pointer;
+            font-size: 28px;
+            color: #aaa;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--dark-text);
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;} to {opacity: 1;}
+        }
+
+        @keyframes slideUp {
+            from {transform: translateY(80px) scale(0.9); opacity: 0;} to {transform: translateY(0) scale(1); opacity: 1;}
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+                padding: 30px 15px;
+            }
+            .task-container {
+                padding: 30px 15px;
+            }
+            .task {
+                padding: 25px;
+            }
+            .task h3 {
+                font-size: 1.3em;
+            }
+            .task button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            .modal-content {
+                padding: 25px;
+            }
+            .modal-content h4 {
+                font-size: 1.5em;
+            }
+            .modal-content p {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>💡 JS Creative Practice Tasks</h1>
+    <div class="task-container">
+        <div class="task"><h3>Task 1: Live Word Counter</h3><button onclick="openModal(1)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 2: Make a Color Palette</h3><button onclick="openModal(2)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 3: Random Quote Generator</h3><button onclick="openModal(3)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 4: Highlight List Item</h3><button onclick="openModal(4)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 5: FAQ Toggle</h3><button onclick="openModal(5)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 6: Image Gallery</h3><button onclick="openModal(6)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 7: Auto Numbered List</h3><button onclick="openModal(7)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 8: Emoji Mood Switcher</h3><button onclick="openModal(8)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 9: Font Style Toggle</h3><button onclick="openModal(9)"><i class="fas fa-book"></i> View Details</button></div>
+        <div class="task"><h3>Task 10: Live Search Filter</h3><button onclick="openModal(10)"><i class="fas fa-book"></i> View Details</button></div>
+    </div>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h4 id="modal-title"></h4>
+            <p id="modal-text"></p>
+        </div>
+    </div>
+    <script>
+        const modal = document.getElementById('modal');
+        const title = document.getElementById('modal-title');
+        const text = document.getElementById('modal-text');
+
+        const taskDetails = {
+            1: {
+                title: 'Live Word Counter',
+                text: '📝 User ek textarea me likhe. Har word ke beech space ho to count update ho.\n\n💡 **Hint:** `input` event ka use karo jab user type kare. Words count karne ke liye text ko `split(" ")` se alag karo.'
+            },
+            2: {
+                title: 'Make a Color Palette',
+                text: '🎨 5 color boxes banao JS se. Jab kisi box pe click ho to page ka background change ho jaye.\n\n💡 **Hint:** Color boxes banane ke liye `document.createElement(\'div\')` use karo. Click event par `event.target.style.backgroundColor` se color lo aur `document.body.style.backgroundColor` change karo.'
+            },
+            3: {
+                title: 'Random Quote Generator',
+                text: '🧠 Array me kuch quotes daalo. Button click par randomly koi ek show ho.\n\n💡 **Hint:** Quotes ko ek array me store karo. `Math.random()` aur `Math.floor()` ka use karke random index nikalo, phir quote display karo.'
+            },
+            4: {
+                title: 'Highlight List Item',
+                text: '📋 List me 5 hobbies ho. Kisi pe click karne par wo bold ho jaye, baaki normal.\n\n💡 **Hint:** Har list item par click event lagao. Jab click ho to current item par class add karo aur baaki sab se remove karo.'
+            },
+            5: {
+                title: 'FAQ Toggle',
+                text: '❓ 5 questions ke answer toggle karo. Pehle click me show, dobara click me hide.\n\n💡 **Hint:** Question par click hone par uske `nextElementSibling` (answer) ki `display` property ko `block` aur `none` ke beech toggle karo. Ya `classList.toggle()` se CSS class badlo.'
+            },
+            6: {
+                title: 'Image Gallery',
+                text: '🖼 3 thumbnails. Kisi pe click karo to upar wo image badi dikhe.\n\n💡 **Hint:** Badi image ke `src` attribute ko clicked thumbnail ke `src` se update karo. Small images ko `data-large-src` attribute bhi de sakte ho.'
+            },
+            7: {
+                title: 'Auto Numbered List',
+                text: '📌 Array me 6 tasks ho. JS se numbered list banaao.\n\n💡 **Hint:** Tasks ko ek array me rakho. Loop (`forEach` ya `for` loop) ka use karke `<li>` elements banao aur unhe `document.createElement(\'ol\')` se banayi list me add karo.'
+            },
+            8: {
+                title: 'Emoji Mood Switcher',
+                text: '😊 Mood buttons ho: Happy, Sad, etc. Click par related emoji dikhe.\n\n💡 **Hint:** Har button ko ek `data-emoji` attribute do. Click hone par, `event.target.dataset.emoji` se emoji lo aur use kisi `<span>` ya `<div>` ke `innerHTML` me update karo.'
+            },
+            9: {
+                title: 'Font Style Toggle',
+                text: '✍ Bold, Italic, Underline buttons ho. Paragraph me toggle karo.\n\n💡 **Hint:** Paragraph element par `classList.toggle(\'bold\')`, `classList.toggle(\'italic\')` etc. ka use karo. CSS me `.bold`, `.italic`, `.underline` classes banao.'
+            },
+            10: {
+                title: 'Live Search Filter',
+                text: '🍎 Fruits ka array. Input box me type karo to matching fruit dikhe.\n\n💡 **Hint:** Input box ke `input` event ko listen karo. Fruits array par `filter()` method lagao. `includes()` method check karega ke fruit ka naam typed text me hai ya nahi.'
+            }
+        };
+
+        function openModal(taskNumber) {
+            const data = taskDetails[taskNumber];
+            title.textContent = data.title;
+            // Using innerHTML here for the bold **Hint** text in the description
+            text.innerHTML = data.text;
+            modal.style.display = 'flex';
+        }
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+        window.onclick = function(e) {
+            if (e.target === modal) closeModal();
+        }
+    </script>
+</body>
+</html>
