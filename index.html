@@ -217,6 +217,42 @@
 </head>
 <body>
     <h1>💡 JS Creative Practice Tasks</h1>
+    <!-- Educational Material Section -->
+<section style="background: #fff; padding: 50px 30px; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); border-top: 5px solid var(--primary-blue);">
+    <h2 style="text-align:center; color: var(--secondary-purple); font-size: 2em; margin-bottom: 30px;">📘 JS Concepts Explained</h2>
+    <div style="max-width: 1000px; margin: auto; color: #333; line-height: 1.7em;">
+        <h3>1. <code>input</code> Event</h3>
+        <p>Jab user kisi input ya textarea me likhta hai to <code>input</code> event turant trigger hota hai. Iska use live changes detect karne ke liye hota hai jaise word count, live validation, etc.</p>
+
+        <h3>2. <code>split(" ")</code></h3>
+        <p>Ye method string ko tod kar array me convert karta hai. Agar space pass karein to har word alag ho jata hai. Useful for counting words.</p>
+
+        <h3>3. <code>document.createElement('div')</code></h3>
+        <p>JS se naya HTML element banane ke liye use hota hai. Isse DOM me naye boxes, buttons, etc. dynamically add kiye ja sakte hain.</p>
+
+        <h3>4. <code>Math.random()</code> + <code>Math.floor()</code></h3>
+        <p><code>Math.random()</code> 0 aur 1 ke beech random number deta hai. <code>Math.floor()</code> decimal ko hata kar nearest lower integer banata hai. Dono mil ke array me random index choose karne me use hote hain.</p>
+
+        <h3>5. <code>nextElementSibling</code></h3>
+        <p>HTML me kisi element ke baad wala agla sibling element ko access karta hai. FAQ toggle me useful hota hai answer div ko access karne ke liye.</p>
+
+        <h3>6. <code>event.target</code></h3>
+        <p>Jis element par click ya event hua hota hai, wo element ko target karta hai. Isse us element ki properties access ki ja sakti hain.</p>
+
+        <h3>7. <code>data-attributes</code></h3>
+        <p>Custom attributes jaise <code>data-emoji</code> store karte hain additional info. <code>dataset.emoji</code> se uski value access kar sakte ho.</p>
+
+        <h3>8. <code>classList.toggle()</code></h3>
+        <p>CSS class ko add/remove karne ka shortcut hai. Agar class lagi ho to hata dega, nahi lagi ho to laga dega. Toggle effects ke liye best.</p>
+
+        <h3>9. <code>filter()</code></h3>
+        <p>Array ke items ko condition ke basis par filter karta hai. Jaise: fruit ka naam input me likhe huye text se match ho raha hai ya nahi.</p>
+
+        <h3>10. <code>includes()</code></h3>
+        <p>Ye check karta hai ke kisi string me ek choti string exist karti hai ya nahi. Case-sensitive hota hai. Useful for search filtering.</p>
+    </div>
+</section>
+
     <div class="task-container">
         <div class="task"><h3>Task 1: Live Word Counter</h3><button onclick="openModal(1)"><i class="fas fa-book"></i> View Details</button></div>
         <div class="task"><h3>Task 2: Make a Color Palette</h3><button onclick="openModal(2)"><i class="fas fa-book"></i> View Details</button></div>
